@@ -1,172 +1,85 @@
-# Phase 3 CLI+ORM Project Template
-
-## Learning Goals
-
-- Discuss the basic directory structure of a CLI.
-- Outline the first steps in building a CLI.
-
----
+# Stock Trade Tracker CLI
 
 ## Introduction
+The Stock Trade Tracker CLI is a command-line interface application designed to manage traders, stocks, and trades. It provides functionalities to create traders and stocks, record trades between traders and stocks, and view, delete, or update trader information. This project utilizes an Object-Relational Mapping (ORM) approach to interact with a SQLite database, ensuring efficient data storage and retrieval.
 
-You now have a basic idea of what constitutes a CLI. Fork and clone this lesson
-for a project template for your CLI.
-
-Take a look at the directory structure:
-
-```console
+## Directory Structure
 .
 ├── Pipfile
 ├── Pipfile.lock
 ├── README.md
 └── lib
+    ├── cli.py
+    ├── connection.py
+    ├── setup.py
     ├── models
     │   ├── __init__.py
-    │   └── model_1.py
-    ├── cli.py
-    ├── debug.py
-    └── helpers.py
-```
+    │   ├── trader.py
+    │   ├── stock.py
+    │   └── trade.py
+    ├── helpers.py
+    └── tests
+        ├── test_trader.py
+        ├── test_stock.py
+        └── test_trade.py
 
-Note: The directory also includes two files named `CONTRIBUTING.md` and
-`LICENSE.md` that are specific to Flatiron's curriculum. You can disregard or
-delete the files if you want.
+## Getting Started
+### Installation:
 
----
+1. Clone the repository.
+2. Navigate to the project directory.
+3. Install dependencies using pipenv install.
+4. Activate the virtual environment using pipenv shell.
+5. Running the CLI:
+6. Execute python lib/cli.py to start the CLI application.
+7. Follow the on-screen prompts to interact with the application.
 
-## Generating Your Environment
+## Features
+### Trader Management
+Create Trader: Add new traders with their names.
+View All Traders: Display a list of all traders.
+Find Trader by ID: Retrieve trader details using their unique ID.
+Delete Trader: Remove a trader from the system.
 
-You might have noticed in the file structure- there's already a Pipfile!
+### Stock Management
+Create Stock: Register new stocks with their names.
+View All Stocks: List all available stocks.
+Find Stock by ID: Fetch stock information using its ID.
+Delete Stock: Delete a stock from the database.
 
-Install any additional dependencies you know you'll need for your project by
-adding them to the `Pipfile`. Then run the commands:
+### Trade Management
+Record Trade: Log transactions between traders and specific stocks.
+View All Trades: Display a history of all recorded trades.
+Find Trade by ID: Retrieve trade details using its unique ID.
+Delete Trade: Remove a trade record from the database.
 
-```console
-pipenv install
-pipenv shell
-```
+### Database Schema
+The application uses SQLite as its database. Here's a simplified schema:
 
----
+#### traders table:
 
-## Generating Your CLI
+id (INTEGER, PRIMARY KEY)
+name (TEXT)
 
-A CLI is, simply put, an interactive script and prompts the user and performs
-operations based on user input.
+#### stocks table:
 
-The project template has a sample CLI in `lib/cli.py` that looks like this:
+id (INTEGER, PRIMARY KEY)
+name (TEXT)
 
-```py
-# lib/cli.py
+#### trades table:
 
-from helpers import (
-    exit_program,
-    helper_1
-)
+id (INTEGER, PRIMARY KEY)
+trade_type (TEXT)
+amount (REAL)
+trader_id (INTEGER, FOREIGN KEY references traders(id))
+stock_id (INTEGER, FOREIGN KEY references stocks(id))
 
-
-def main():
-    while True:
-        menu()
-        choice = input("> ")
-        if choice == "0":
-            exit_program()
-        elif choice == "1":
-            helper_1()
-        else:
-            print("Invalid choice")
-
-
-def menu():
-    print("Please select an option:")
-    print("0. Exit the program")
-    print("1. Some useful function")
-
-
-if __name__ == "__main__":
-    main()
-```
-
-The helper functions are located in `lib/helpers.py`:
-
-```py
-# lib/helpers.py
-
-def helper_1():
-    print("Performing useful function#1.")
-
-
-def exit_program():
-    print("Goodbye!")
-    exit()
-```
-
-You can run the template CLI with `python lib/cli.py`, or include the shebang
-and make it executable with `chmod +x`. The template CLI will ask for input, do
-some work, and accomplish some sort of task.
-
-Past that, CLIs can be whatever you'd like, as long as you follow the project
-requirements.
-
-Of course, you will update `lib/cli.py` with prompts that are appropriate for
-your application, and you will update `lib/helpers.py` to replace `helper_1()`
-with a useful function based on the specific problem domain you decide to
-implement, along with adding other helper functions to the module.
-
-In the `lib/models` folder, you should rename `model_1.py` with the name of a
-data model class from your specific problem domain, and add other classes to the
-folder as needed. The file `lib/models/__init__.py` has been initialized to
-create the necessary database constants. You need to add import statements to
-the various data model classes in order to use the database constants.
-
-You are also welcome to implement a different module and directory structure.
-However, your project should be well organized, modular, and follow the design
-principal of separation of concerns, which means you should separate code
-related to:
-
-- User interface
-- Data persistence
-- Problem domain rules and logic
-
----
-
-## Updating README.md
-
-`README.md` is a Markdown file that should describe your project. You will
-replace the contents of this `README.md` file with a description of **your**
-actual project.
-
-Markdown is not a language that we cover in Flatiron's Software Engineering
-curriculum, but it's not a particularly difficult language to learn (if you've
-ever left a comment on Reddit, you might already know the basics). Refer to the
-cheat sheet in this assignments's resources for a basic guide to Markdown.
-
-### What Goes into a README?
-
-This README serves as a template. Replace the contents of this file to describe
-the important files in your project and describe what they do. Each Python file
-that you edit should get at least a paragraph, and each function should be
-described with a sentence or two.
-
-Describe your actual CLI script first, and with a good level of detail. The rest
-should be ordered by importance to the user. (Probably functions next, then
-models.)
-
-Screenshots and links to resources that you used throughout are also useful to
-users and collaborators, but a little more syntactically complicated. Only add
-these in if you're feeling comfortable with Markdown.
-
----
-
-## Conclusion
-
-A lot of work goes into a good CLI, but it all relies on concepts that you've
-practiced quite a bit by now. Hopefully this template and guide will get you off
-to a good start with your Phase 3 Project.
-
-Happy coding!
-
----
-
-## Resources
-
-- [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
+### Testing
+Unit tests for models are located in the tests directory.
+Run tests using pytest to ensure all functionalities are working correctly.
+Dependencies
+sqlite3: SQLite database management.
+pytest: Testing framework for unit tests.
+pipenv: Dependency management tool.
+License
+This project is licensed under the MIT License - see the LICENSE.md file for details.
