@@ -55,30 +55,30 @@ The application uses SQLite as its database. Here's a simplified schema:
 
 #### traders table:
 
-id (INTEGER, PRIMARY KEY)
-name (TEXT)
+1. id (INTEGER, PRIMARY KEY)
+2. name (TEXT)
 
 #### stocks table:
 
-id (INTEGER, PRIMARY KEY)
-name (TEXT)
+1. id (INTEGER, PRIMARY KEY)
+2. name (TEXT)
 
 #### trades table:
 
-id (INTEGER, PRIMARY KEY)
-trade_type (TEXT)
-amount (REAL)
-trader_id (INTEGER, FOREIGN KEY references traders(id))
-stock_id (INTEGER, FOREIGN KEY references stocks(id))
+1. id (INTEGER, PRIMARY KEY)
+2. trade_type (TEXT)
+3. amount (REAL)
+4. trader_id (INTEGER, FOREIGN KEY references traders(id))
+5. stock_id (INTEGER, FOREIGN KEY references stocks(id))
 
 ### Testing
 Unit tests for models are located in the tests directory.
 Run tests using pytest to ensure all functionalities are working correctly.
 
 ### Dependencies
-sqlite3: SQLite database management.
-pytest: Testing framework for unit tests.
-pipenv: Dependency management tool.
+1. sqlite3: SQLite database management.
+2. pytest: Testing framework for unit tests.
+3. pipenv: Dependency management tool.
 
 ### License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
