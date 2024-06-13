@@ -10,18 +10,15 @@ The Stock Trade Tracker CLI is a command-line interface application designed to 
 ├── README.md
 └── lib
     ├── cli.py
-    ├── connection.py
-    ├── setup.py
     ├── models
+    │   ├── connection.py
+    │   ├── setup.py
     │   ├── __init__.py
     │   ├── trader.py
     │   ├── stock.py
     │   └── trade.py
-    ├── helpers.py
-    └── tests
-        ├── test_trader.py
-        ├── test_stock.py
-        └── test_trade.py
+    ├── debug.py
+    └── helpers.py
 
 ## Getting Started
 ### Installation:
@@ -77,9 +74,11 @@ stock_id (INTEGER, FOREIGN KEY references stocks(id))
 ### Testing
 Unit tests for models are located in the tests directory.
 Run tests using pytest to ensure all functionalities are working correctly.
-Dependencies
+
+### Dependencies
 sqlite3: SQLite database management.
 pytest: Testing framework for unit tests.
 pipenv: Dependency management tool.
-License
+
+### License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
