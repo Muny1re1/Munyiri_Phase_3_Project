@@ -18,6 +18,7 @@ def display_menu():
     print("11. Delete Stock")
     print("12. Delete Trade")
     print("13. Find Trades by a trader")
+    print("14. Update Stock Rate")
     print("0. Exit")
 
 def main():
@@ -25,15 +26,18 @@ def main():
         display_menu()
         choice = input("Choose an option: ")
         if choice == "1":
+            # Create a Trader
             trader_name = input("Enter trader name: ")
             trader = Trader(trader_name)
             print(f"Trader {trader.trader_name} created with ID {trader.id}")
         elif choice == "2":
+            # Create a Stock
             stock_name = input("Enter stock name: ")
             rate_per_stock = float(input("Enter rate per stock: "))
             stock = Stock(stock_name, rate_per_stock)
             print(f"Stock {stock.stock_name} created with ID {stock.id}")
         elif choice == "3":
+            # Create a Trade
             trader_id = int(input("Enter trader ID: "))
             stock_id = int(input("Enter stock ID: "))
             trade_type = input("Enter trade type (profit/loss): ")
@@ -46,14 +50,17 @@ def main():
             else:
                 print("Invalid trader or stock ID")
         elif choice == "4":
+            # View All Traders
             traders = Trader.get_all()
             for trader in traders:
                 print(f"ID: {trader.id}, Name: {trader.trader_name}")
         elif choice == "5":
+            # View All Stocks
             stocks = Stock.get_all()
             for stock in stocks:
                 print(f"ID: {stock.id}, Name: {stock.stock_name}, Rate: {stock.rate_per_stock}")
         elif choice == "6":
+            # View All Trades
             trades = Trade.get_all()
             for trade in trades:
                 trade_dict = {
@@ -65,6 +72,7 @@ def main():
                 }
                 print(trade_dict)
         elif choice == "7":
+            # Find Trader by ID
             trader_id = int(input("Enter trader ID: "))
             trader = Trader.find_by_id(trader_id)
             if trader:
@@ -72,6 +80,7 @@ def main():
             else:
                 print("Trader not found")
         elif choice == "8":
+            # Find Stock by ID
             stock_id = int(input("Enter stock ID: "))
             stock = Stock.find_by_id(stock_id)
             if stock:
@@ -79,6 +88,7 @@ def main():
             else:
                 print("Stock not found")
         elif choice == "9":
+            # Find Trade by ID
             trade_id = int(input("Enter trade ID: "))
             trade = Trade.find_by_id(trade_id)
             if trade:
@@ -93,6 +103,7 @@ def main():
             else:
                 print("Trade not found")
         elif choice == "10":
+            # Delete Trader
             trader_id = int(input("Enter trader ID: "))
             trader = Trader.find_by_id(trader_id)
             if trader:
@@ -101,6 +112,7 @@ def main():
             else:
                 print("Trader not found")
         elif choice == "11":
+            # Delete Stock
             stock_id = int(input("Enter stock ID: "))
             stock = Stock.find_by_id(stock_id)
             if stock:
@@ -109,6 +121,7 @@ def main():
             else:
                 print("Stock not found")
         elif choice == "12":
+            # Delete Trade
             trade_id = int(input("Enter trade ID: "))
             trade = Trade.find_by_id(trade_id)
             if trade:
@@ -117,6 +130,7 @@ def main():
             else:
                 print("Trade not found")
         elif choice == "13":
+            # Find Trades by a trader
             trader_id = int(input("Enter trader ID: "))
             trades = Trade.get_trades_by_trader_id(trader_id)
             if trades:
@@ -124,7 +138,18 @@ def main():
                     print(f"Trade ID: {trade.id}, Type: {trade.trade_type}, Amount: {trade.amount}, Trader ID: {trade.trader_id}, Stock ID: {trade.stock_id}")
             else:
                 print("No trades found for this trader")
+        elif choice == "14":
+            # Update Stock Rate
+            stock_id = int(input("Enter stock ID: "))
+            new_rate = float(input("Enter new rate per stock: "))
+            stock = Stock.find_by_id(stock_id)
+            if stock:
+                stock.update_rate_per_stock(new_rate)
+                print(f"Stock {stock_id} rate updated to {stock.rate_per_stock}")
+            else:
+                print("Stock not found")
         elif choice == "0":
+            # Exit Program
             exit_program()
         else:
             print("Invalid choice")

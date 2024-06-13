@@ -28,9 +28,7 @@ class Stock:
     
     @rate_per_stock.setter
     def rate_per_stock(self, rate_per_stock):
-        if self._rate_per_stock is not None:
-            raise AttributeError("Rate per stock has already been set!")
-        if not isinstance(rate_per_stock, (float, int)):  # Allow both float and int
+        if not isinstance(rate_per_stock, (float, int)):
             raise ValueError("Rate per stock must be a number!")
         self._rate_per_stock = float(rate_per_stock)
 
@@ -51,6 +49,20 @@ class Stock:
         """
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
+
+    def update_rate_per_stock(self, new_rate):
+        if not isinstance(new_rate, (float, int)):
+            raise ValueError("Rate per stock must be a number!")
+        
+        sql = """
+            UPDATE stocks
+            SET rate_per_stock = ?
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (float(new_rate), self.id))
+        CONN.commit()
+        
+        self._rate_per_stock = float(new_rate)
     
     @classmethod
     def get_all(cls):

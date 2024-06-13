@@ -5,7 +5,7 @@ from .stock import Stock
 
 class Trade:
     def __init__(self, trade_type, amount, trader_id, stock_id, id=None):
-        create_table()  # Ensure table exists
+        create_table()
         self._trade_type = None
         self._amount = None
         self._trader_id = None
